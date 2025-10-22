@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEUROCRAFTS — AI-дизайн и Нейроразработка</title>
+    <meta name="description" content="Премиальные услуги AI-дизайна, creative tech и нейроразработки. Создаем будущее технологий.">
+    <meta name="keywords" content="AI дизайн, нейроразработка, creative tech, NEUROCRAFTS, искусственный интеллект, машинное обучение, дизайн будущего">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="NEUROCRAFTS">
+    <meta property="og:title" content="NEUROCRAFTS — AI-дизайн и Нейроразработка">
+    <meta property="og:description" content="Премиальные услуги AI-дизайна, creative tech и нейроразработки">
+    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="NEUROCRAFTS — AI-дизайн и Нейроразработка">
+    <meta name="twitter:description" content="Премиальные услуги AI-дизайна, creative tech и нейроразработки">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Preconnect для оптимизации загрузки внешних ресурсов -->
+    <link rel="preconnect" href="https://resource.trickle.so">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://i.imgur.com">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NEUROCRAFTS",
+      "description": "Премиальные услуги AI-дизайна, creative tech и нейроразработки",
+      "url": "http://neurocrafts.ru",
+      "logo": "http://neurocrafts.ru/logo.png",
+      "sameAs": [
+        "https://t.me/neurocraftsru",
+        "https://github.com/neurocrafts"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "craftsneuro@gmail.com",
+        "contactType": "Customer Service"
+      }
+    }
+    </script>
+    
+    <style>
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react@18/umd/react.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://resource.trickle.so/vendor_lib/unpkg/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+      // EmailJS Configuration - ACTIVE
+      // Письма отправляются на craftsneuro@gmail.com
+      window.EMAILJS_PUBLIC_KEY = 'xYecC-27qntuOhKBp';
+      window.EMAILJS_SERVICE_ID = 'service_fck3vzn';
+      window.EMAILJS_TEMPLATE_ID = 'template_qpb4e8i';
+      
+      // Initialize EmailJS
+      (function() {
+        emailjs.init(window.EMAILJS_PUBLIC_KEY);
+      })();
+    </script>
+    <style type="text/tailwindcss">
+    @layer theme {
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #FFFFFF;
+            --accent-color: #FFD600;
+            --yellow: #FFD600;
+            --red: #FF3B30;
+        }
+    }
+
+    @layer base {
+        body {
+            @apply bg-black text-white font-sans antialiased;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            font-weight: 900;
+        }
+        
+        button, a {
+            min-height: 44px;
+            min-width: 44px;
+        }
+    }
+
+    @layer components {
+        .glass-effect {
+            @apply bg-white bg-opacity-5 backdrop-blur-xl border border-white border-opacity-10;
+        }
+        
+        .text-gradient {
+            @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    @layer utilities {
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .will-change-transform {
+            will-change: transform;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <div id="custom-cursor" style="position: fixed; width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.5); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.15s ease-out, opacity 0.3s; opacity: 0;"></div>
+    <a 
+      href="https://t.me/neurocraftsru" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      id="telegram-button" 
+      style="position: fixed; bottom: 2rem; right: 2rem; width: 4rem; height: 4rem; border-radius: 50%; background: linear-gradient(135deg, #FFD600 0%, #FFA500 100%); display: flex; align-items: center; justify-content: center; z-index: 50; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(255, 214, 0, 0.4); border: 3px solid black;" 
+      aria-label="Написать в Telegram"
+      onmouseenter="this.style.transform='scale(1.1) rotate(5deg)'; this.style.boxShadow='0 12px 48px rgba(255, 214, 0, 0.6)';"
+      onmouseleave="this.style.transform='scale(1) rotate(0deg)'; this.style.boxShadow='0 8px 32px rgba(255, 214, 0, 0.4)';"
+    >
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="black" stroke="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+      </svg>
+    </a>
+    <button id="scroll-to-top" style="position: fixed; bottom: 7.5rem; right: 2rem; width: 3rem; height: 3rem; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); display: none; align-items: center; justify-content: center; z-index: 40; cursor: pointer; transition: all 0.3s;" aria-label="Scroll to top">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+    <div id="root"></div>
+    <!-- Google Analytics 4 -->
+    <!-- Replace G-XXXXXXXXXX with your actual GA4 Measurement ID -->
+    <!-- Uncomment the code below after getting your Measurement ID -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', {
+        'page_title': document.title,
+        'page_location': window.location.href
+      });
+    </script>
+    -->
+    
+    <script>
+      // Placeholder for tracking events (works even without GA4)
+      window.dataLayer = window.dataLayer || [];
+      window.trackEvent = function(category, action, label) {
+        console.log('Event tracked:', { category, action, label });
+        if (typeof gtag !== 'undefined') {
+          gtag('event', action, {
+            'event_category': category,
+            'event_label': label
+          });
+        }
+      };
+    </script>
+    
+    <!-- Yandex.Metrika -->
+    <script type="text/javascript">
+      // Replace XXXXXXXX with your actual Yandex.Metrika counter ID
+      // Uncomment the code below after getting your counter ID
+      /*
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(XXXXXXXX, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+      });
+      */
+    </script>
+    <script type="text/babel" src="utils/cursor.js"></script>
+    <script type="text/babel" src="utils/preloader.js"></script>
+    <script type="text/babel" src="utils/scrollToTop.js"></script>
+    <script type="text/babel" src="components/ScrollIndicator.js"></script>
+    <script type="text/babel" src="components/Sidebar.js"></script>
+    <script type="text/babel" src="components/Hero3D.js"></script>
+    <script type="text/babel" src="components/Services.js"></script>
+    <script type="text/babel" src="components/Gallery.js"></script>
+    <script type="text/babel" src="components/ProjectModal.js"></script>
+    <script type="text/babel" src="components/BeforeAfterSection.js"></script>
+    <script type="text/babel" src="components/Benefits.js"></script>
+    <script type="text/babel" src="components/ContactForm.js"></script>
+    <script type="text/babel" src="components/Footer.js"></script>
+    <script type="text/babel" src="components/ParallaxElements.js"></script>
+    <script type="text/babel" src="components/PromptsPopup.js"></script>
+    <script type="text/babel" src="app.js"></script>
+</body>
+</html>

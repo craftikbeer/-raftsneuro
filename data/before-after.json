@@ -1,0 +1,29 @@
+{
+  "lastUpdated": "2025-10-22T19:37:12Z",
+  "projects": [
+    {
+      "id": "1",
+      "title": "AI-Портрет: От любителя до профи",
+      "category": "AI-Дизайн",
+      "before": "https://app.trickle.so/storage/tasks/storage/generated_images/1761161806306.png",
+      "after": "https://app.trickle.so/storage/tasks/storage/generated_images/1761161811202.png",
+      "description": "Превратили некачественный AI-портрет в профессиональный снимок. Убрали артефакты, исправили пропорции, добавили кинематографичное освещение. Результат: портрет готов для соцсетей и личного бренда."
+    },
+    {
+      "id": "2",
+      "title": "Перенос логотипа на упаковку",
+      "category": "Перенос логотипа",
+      "before": "https://app.trickle.so/storage/tasks/storage/generated_images/1761161816368.png",
+      "after": "https://app.trickle.so/storage/tasks/storage/generated_images/1761161821866.png",
+      "description": "Интегрировали логотип в дизайн упаковки. Было: пиксельный логотип, не сочетается с дизайном. Стало: премиальное размещение, идеальная цветопередача, выглядит дорого."
+    },
+    {
+      "id": "3",
+      "title": "Редизайн упаковки продукта",
+      "category": "Упаковка продукта",
+      "before": "https://app.trickle.so/storage/tasks/storage/generated_images/1761161827293.png",
+      "after": "https://app.trickle.so/storage/tasks/storage/generated_images/1761161832690.png",
+      "description": "Полная трансформация упаковки чая. Скучный дизайн заменили на премиальный. Добавили контрастную типографику, яркие акценты, профессиональный брендинг. Продукт стал выделяться на полке."
+    }
+  ]
+}
