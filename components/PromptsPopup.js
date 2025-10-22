@@ -101,9 +101,10 @@ function PromptsPopup() {
       >
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-500/20 hover:bg-red-500/30 flex items-center justify-center transition-all border border-red-500/30"
+          className="absolute top-2 right-2 z-20 w-12 h-12 md:w-10 md:h-10 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center transition-all shadow-lg active:scale-95"
+          aria-label="Закрыть"
         >
-          <div className="icon-x text-xl text-red-400"></div>
+          <div className="icon-x text-2xl md:text-xl text-white"></div>
         </button>
 
         <div className="p-8 md:p-12 text-center">

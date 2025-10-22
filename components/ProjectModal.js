@@ -27,26 +27,19 @@ function ProjectModal({ project, currentIndex, totalProjects, onNavigate, onClos
       }}
     >
       <div 
-        className="relative max-w-6xl w-full"
+        className="relative max-w-6xl w-full mx-2 md:mx-0"
         style={{
           transform: isLoaded ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(20px)',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
-        <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-3xl overflow-hidden border-4 border-white/10 shadow-[0_0_100px_rgba(255,255,255,0.1)]">
+        <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl md:rounded-3xl overflow-hidden border-2 md:border-4 border-white/10 shadow-[0_0_100px_rgba(255,255,255,0.1)]">
           <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white/5 to-transparent"></div>
           
           <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
             <span className="text-xs text-gray-500 font-mono">ACTIVE</span>
           </div>
-
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 md:top-6 md:right-6 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-red-500/20 hover:bg-red-500/30 flex items-center justify-center transition-all group border border-red-500/30"
-          >
-            <div className="icon-x text-lg md:text-xl text-red-400 group-hover:rotate-90 transition-transform"></div>
-          </button>
           
           <div className="absolute top-6 left-6 z-20 px-4 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20">
             <span className="text-sm font-bold">{currentIndex + 1} / {totalProjects}</span>
@@ -85,7 +78,7 @@ function ProjectModal({ project, currentIndex, totalProjects, onNavigate, onClos
             </div>
           </div>
 
-          <div className="px-6 md:px-12 pb-8 md:pb-12">
+          <div className="px-6 md:px-12 pb-6 md:pb-8">
             <div className="mb-4 md:mb-6">
               <span className="inline-block px-4 md:px-5 py-1.5 md:py-2 bg-[var(--yellow)] text-black text-sm md:text-base font-black tracking-wider uppercase transform -skew-x-6">{project.category}</span>
             </div>
@@ -101,7 +94,7 @@ function ProjectModal({ project, currentIndex, totalProjects, onNavigate, onClos
               {project.description}
             </p>
             {project.tags && project.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 md:gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3 mb-8">
                 {project.tags.map((tag, index) => (
                   <span
                     key={index}
@@ -112,6 +105,14 @@ function ProjectModal({ project, currentIndex, totalProjects, onNavigate, onClos
                 ))}
               </div>
             )}
+            
+            <button
+              onClick={onClose}
+              className="w-full py-5 md:py-6 bg-[var(--yellow)] text-black font-black text-lg md:text-xl uppercase tracking-wide hover:bg-white transition-all transform hover:scale-105 border-4 border-black flex items-center justify-center gap-3"
+            >
+              <div className="icon-x text-2xl"></div>
+              ЗАКРЫТЬ
+            </button>
           </div>
         </div>
 

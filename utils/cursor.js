@@ -1,7 +1,14 @@
-// Custom cursor functionality
+// Custom cursor functionality - disabled on mobile
 const initCustomCursor = () => {
+  // Check if device is mobile/tablet
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   window.innerWidth < 1024;
+  
   const cursor = document.getElementById('custom-cursor');
-  if (!cursor) return;
+  if (!cursor || isMobile) {
+    if (cursor) cursor.style.display = 'none';
+    return;
+  }
 
   let mouseX = 0;
   let mouseY = 0;
