@@ -63,9 +63,13 @@ function App() {
   }
 }
 
+console.log('React app starting...');
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ErrorBoundary>
     <App />
   </ErrorBoundary>
 );
+
+console.log('React app rendered');
