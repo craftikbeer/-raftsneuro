@@ -35,23 +35,14 @@ class ErrorBoundary extends React.Component {
 function App() {
   try {
     return (
-      <div style={{ animation: 'fadeIn 1s ease-in forwards' }} data-name="app" data-file="app.js">
-        <style>{`
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-        `}</style>
-        <ParallaxElements />
+      <div data-name="app" data-file="app.js">
         <ScrollIndicator />
-        <Sidebar />
-        <PromptsPopup />
-        <div className="md:ml-20 relative z-10">
-          <Hero3D />
+        <Header />
+        <HeroBrutal />
+        <div>
           <Services />
           <Benefits />
           <Gallery />
-          <BeforeAfterSection />
           <ContactForm />
           <Footer />
         </div>
@@ -63,13 +54,9 @@ function App() {
   }
 }
 
-console.log('React app starting...');
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ErrorBoundary>
     <App />
   </ErrorBoundary>
 );
-
-console.log('React app rendered');

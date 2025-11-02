@@ -15,7 +15,7 @@
     <meta name="twitter:description" content="Премиальные услуги AI-дизайна, creative tech и нейроразработки">
     <meta name="twitter:card" content="summary_large_image">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🧠</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <!-- Preconnect для оптимизации загрузки внешних ресурсов -->
     <link rel="preconnect" href="https://resource.trickle.so">
@@ -45,6 +45,7 @@
     </script>
     
     <style>
+        body { margin: 0; background: #000; color: #fff; }
         #preloader {
             position: fixed;
             inset: 0;
@@ -53,23 +54,16 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
         }
-        #preloader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+        #preloader.hidden { display: none; }
         .loader {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #fff;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 
     <script src="https://resource.trickle.so/vendor_lib/unpkg/react@18/umd/react.production.min.js"></script>
@@ -96,78 +90,51 @@
             --primary-color: #000000;
             --secondary-color: #FFFFFF;
             --accent-color: #FFD600;
-            --yellow: #FFD600;
-            --red: #FF3B30;
+            --border-width: 4px;
         }
     }
 
     @layer base {
         body {
-            @apply bg-black text-white font-sans antialiased;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            @apply bg-black text-white font-sans;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-size: 16px;
-            line-height: 1.6;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="24">🍌</text></svg>') 16 16, auto;
+            line-height: 1.4;
         }
         
-        a, button, input, textarea, select {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="24">🍌</text></svg>') 16 16, pointer;
-        }
-        
-        * {
-            scroll-behavior: smooth;
-        }
+        * { scroll-behavior: smooth; }
         
         h1, h2, h3, h4, h5, h6 {
-            line-height: 1.2;
+            line-height: 1;
             font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
         }
         
-        button, a {
-            min-height: 44px;
-            min-width: 44px;
-        }
+        button, a { min-height: 44px; min-width: 44px; }
     }
 
     @layer components {
-        .glass-effect {
-            @apply bg-white bg-opacity-5 backdrop-blur-xl border border-white border-opacity-10;
+        .brutal-box {
+            @apply bg-white text-black border-4 border-black;
         }
         
-        .text-gradient {
-            @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
+        .brutal-box-inverse {
+            @apply bg-black text-white border-4 border-white;
         }
         
-        .glow-effect {
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
         }
     }
 
     @layer utilities {
-        .perspective-1000 {
-            perspective: 1000px;
+        .sharp-shadow {
+            box-shadow: 8px 8px 0 rgba(255, 214, 0, 1);
         }
         
-        .will-change-transform {
-            will-change: transform;
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.2;
-            }
-            50% {
-                opacity: 0.8;
-            }
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+        .sharp-shadow-white {
+            box-shadow: 8px 8px 0 rgba(255, 255, 255, 1);
         }
     }
     </style>
@@ -177,52 +144,57 @@
         <div class="loader"></div>
     </div>
 
+    <button 
+      id="scroll-to-top" 
+      onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+      style="position: fixed; bottom: 2rem; left: auto; right: 7rem; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); display: none; align-items: center; justify-content: center; z-index: 40; cursor: pointer; transition: all 0.3s;" 
+      aria-label="Наверх"
+      onmouseenter="this.style.background='rgba(255,255,255,0.2)';"
+      onmouseleave="this.style.background='rgba(255,255,255,0.1)';"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
     <a 
       href="https://t.me/neurocraftsru" 
       target="_blank" 
       rel="noopener noreferrer"
       id="telegram-button" 
-      style="position: fixed; bottom: 2rem; right: 2rem; width: 4rem; height: 4rem; border-radius: 50%; background: linear-gradient(135deg, #FFD600 0%, #FFA500 100%); display: flex; align-items: center; justify-content: center; z-index: 50; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(255, 214, 0, 0.4); border: 3px solid black;" 
+      style="position: fixed; bottom: 2rem; right: 2rem; width: 4rem; height: 4rem; border-radius: 50%; background: #0088cc; display: flex; align-items: center; justify-content: center; z-index: 50; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(0, 136, 204, 0.4); border: none;" 
       aria-label="Написать в Telegram"
-      onmouseenter="this.style.transform='scale(1.1) rotate(5deg)'; this.style.boxShadow='0 12px 48px rgba(255, 214, 0, 0.6)';"
-      onmouseleave="this.style.transform='scale(1) rotate(0deg)'; this.style.boxShadow='0 8px 32px rgba(255, 214, 0, 0.4)';"
+      onmouseenter="this.style.transform='scale(1.1)'; this.style.background='#0077b5'; this.style.boxShadow='0 12px 48px rgba(0, 136, 204, 0.6)';"
+      onmouseleave="this.style.transform='scale(1)'; this.style.background='#0088cc'; this.style.boxShadow='0 8px 32px rgba(0, 136, 204, 0.4)';"
     >
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="black" stroke="none">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
       </svg>
     </a>
-    <button id="scroll-to-top" style="position: fixed; bottom: 7.5rem; right: 2rem; width: 3rem; height: 3rem; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); display: none; align-items: center; justify-content: center; z-index: 40; cursor: pointer; transition: all 0.3s;" aria-label="Scroll to top">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-        <path d="M18 15l-6-6-6 6"/>
-      </svg>
-    </button>
     <div id="root"></div>
     <!-- Google Analytics 4 -->
-    <!-- Replace G-XXXXXXXXXX with your actual GA4 Measurement ID -->
-    <!-- Uncomment the code below after getting your Measurement ID -->
-    <!--
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TQVEB29TNF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX', {
+      gtag('config', 'G-TQVEB29TNF', {
         'page_title': document.title,
-        'page_location': window.location.href
+        'page_location': window.location.href,
+        'send_page_view': true
       });
     </script>
-    -->
     
     <script>
-      // Placeholder for tracking events (works even without GA4)
-      window.dataLayer = window.dataLayer || [];
+      // Event tracking function for custom events
       window.trackEvent = function(category, action, label) {
-        console.log('Event tracked:', { category, action, label });
         if (typeof gtag !== 'undefined') {
           gtag('event', action, {
             'event_category': category,
             'event_label': label
           });
+          console.log('GA4 Event tracked:', { category, action, label });
+        } else {
+          console.log('GA4 not loaded. Event:', { category, action, label });
         }
       };
     </script>
@@ -247,19 +219,28 @@
       */
     </script>
     <script type="text/babel" src="utils/preloader.js"></script>
-    <script type="text/babel" src="utils/scrollToTop.js"></script>
+    <script>
+      // Scroll to top button visibility
+      window.addEventListener('scroll', function() {
+        const scrollBtn = document.getElementById('scroll-to-top');
+        if (scrollBtn) {
+          if (window.scrollY > 300) {
+            scrollBtn.style.display = 'flex';
+          } else {
+            scrollBtn.style.display = 'none';
+          }
+        }
+      });
+    </script>
     <script type="text/babel" src="components/ScrollIndicator.js"></script>
-    <script type="text/babel" src="components/Sidebar.js"></script>
-    <script type="text/babel" src="components/Hero3D.js"></script>
+    <script type="text/babel" src="components/Header.js"></script>
+    <script type="text/babel" src="components/HeroBrutal.js"></script>
     <script type="text/babel" src="components/Services.js"></script>
     <script type="text/babel" src="components/Gallery.js"></script>
     <script type="text/babel" src="components/ProjectModal.js"></script>
-    <script type="text/babel" src="components/BeforeAfterSection.js"></script>
     <script type="text/babel" src="components/Benefits.js"></script>
     <script type="text/babel" src="components/ContactForm.js"></script>
     <script type="text/babel" src="components/Footer.js"></script>
-    <script type="text/babel" src="components/ParallaxElements.js"></script>
-    <script type="text/babel" src="components/PromptsPopup.js"></script>
     <script type="text/babel" src="app.js"></script>
 </body>
 </html>

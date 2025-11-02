@@ -28,18 +28,18 @@ function Benefits() {
   const benefits = [
     {
       icon: 'shield-check',
-      title: 'Гарантия результата',
-      description: '1 бесплатная правка включена. Если результат совсем не тот — вернём 50% стоимости.'
+      title: 'ГАРАНТИЯ',
+      description: '1 ПРАВКА БЕСПЛАТНО<br/>ВОЗВРАТ 50% ЕСЛИ НЕ ТО'
     },
     {
       icon: 'zap',
-      title: 'Скорость как оружие',
-      description: 'AI-портрет за 1-2 дня. Перенос логотипа за 2-3 дня. Упаковка за неделю.'
+      title: 'СКОРОСТЬ',
+      description: 'ПОРТРЕТ 1-2 ДНЯ<br/>ЛОГОТИП 2-3 ДНЯ<br/>УПАКОВКА НЕДЕЛЯ'
     },
     {
       icon: 'target',
-      title: 'Работаю напрямую',
-      description: 'Без посредников и менеджеров. Связь со мной напрямую в Telegram.'
+      title: 'ПРЯМАЯ СВЯЗЬ',
+      description: 'БЕЗ ПОСРЕДНИКОВ<br/>ПИШИТЕ В TELEGRAM'
     }
   ];
 
@@ -52,43 +52,24 @@ function Benefits() {
       data-file="components/Benefits.js"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 
-          className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 md:mb-8 text-center tracking-tight uppercase leading-tight px-4"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.8s ease-out'
-          }}
-        >
-          ПОЧЕМУ Я, А НЕ <span className="text-[var(--yellow)]">СТУДИЯ</span>
+        <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 md:mb-10 text-center leading-none px-4">
+          ПОЧЕМУ Я
         </h2>
-        <p 
-          className="text-lg md:text-xl lg:text-2xl text-center mb-12 md:mb-20 font-bold text-gray-300 max-w-3xl mx-auto px-4"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.8s ease-out 0.2s'
-          }}
-        >
-          Фрилансер = меньше цена, больше скорость, прямая связь
-        </p>
+        <div className="max-w-2xl mx-auto mb-12 md:mb-16 border-t-4 border-b-4 border-white py-4 md:py-5">
+          <p className="text-base md:text-lg lg:text-xl text-center font-black px-4">
+            МЕНЬШЕ ЦЕНА • БОЛЬШЕ СКОРОСТЬ • ПРЯМАЯ СВЯЗЬ
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 max-w-6xl mx-auto border-4 border-white">
           {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="glass-effect p-8 md:p-10 rounded-2xl text-center"
-              style={{
-                opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-                transition: `all 0.6s ease-out ${0.3 + index * 0.1}s`
-              }}
+              className="brutal-box-inverse p-8 md:p-10 lg:p-12 border-r-0 md:border-r-4 last:border-r-0 border-b-4 md:border-b-0 last:border-b-0"
             >
-              <div className="w-16 h-16 bg-[var(--yellow)] mx-auto mb-6 flex items-center justify-center">
-                <div className={`icon-${benefit.icon} text-3xl text-black`}></div>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-black uppercase mb-4">{benefit.title}</h3>
-              <p className="text-base md:text-lg text-gray-300 leading-relaxed">{benefit.description}</p>
+              <div className="text-7xl md:text-8xl lg:text-9xl mb-6 md:mb-8 opacity-20">{String(index + 1).padStart(2, '0')}</div>
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 md:mb-6 leading-none">{benefit.title}</h3>
+              <p className="text-sm md:text-base lg:text-lg font-black leading-relaxed" dangerouslySetInnerHTML={{ __html: benefit.description }}></p>
             </div>
           ))}
         </div>

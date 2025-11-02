@@ -103,7 +103,7 @@ function Sidebar() {
               href="index.html"
               className="text-lg md:text-xl font-black uppercase"
             >
-              <span className="text-[var(--yellow)]">NEURO</span>CRAFTS
+              NEUROCRAFTS
             </a>
             
             <button
@@ -122,23 +122,26 @@ function Sidebar() {
           style={{ top: '64px' }}
         >
           <nav className="flex flex-col p-4 md:p-6 gap-2">
-            {menuItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 md:py-4 transition-all border-l-4 ${
-                  activeSection === item.id 
-                    ? 'bg-[var(--yellow)] text-black border-black font-black' 
-                    : 'border-transparent hover:border-[var(--yellow)] hover:bg-white/5 font-bold'
-                }`}
-              >
-                <div className={`icon-${item.icon} text-lg md:text-xl`}></div>
-                <span className="text-xs md:text-sm uppercase tracking-wide">{item.label}</span>
-              </button>
-            ))}
+            {menuItems.map((item) => {
+              if (item.id === 'before-after') return null;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 md:py-4 transition-all border-l-4 ${
+                    activeSection === item.id 
+                      ? 'bg-white text-black border-white font-black' 
+                      : 'border-transparent hover:border-white hover:bg-white/5 font-bold'
+                  }`}
+                >
+                  <div className={`icon-${item.icon} text-lg md:text-xl`}></div>
+                  <span className="text-xs md:text-sm uppercase tracking-wide">{item.label}</span>
+                </button>
+              );
+            })}
             <a 
               href="before-after.html"
-              className="flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 md:py-4 transition-all border-l-4 border-transparent hover:border-[var(--yellow)] hover:bg-white/5 font-bold"
+              className="flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 md:py-4 transition-all border-l-4 border-transparent hover:border-white hover:bg-white/5 font-bold"
             >
               <div className="icon-repeat text-lg md:text-xl"></div>
               <span className="text-xs md:text-sm uppercase tracking-wide">Редизайн</span>
@@ -184,42 +187,45 @@ function Sidebar() {
         <div className="flex flex-col h-full py-8">
           <a 
             href="index.html"
-            className="block px-6 mb-10 lg:mb-12 text-xl lg:text-2xl font-black whitespace-nowrap overflow-hidden uppercase"
+            className="block px-6 mb-8 md:mb-10 lg:mb-12 text-lg md:text-xl lg:text-2xl font-black whitespace-nowrap overflow-hidden uppercase"
             style={{ opacity: isExpanded ? 1 : 0, transition: 'opacity 0.3s ease' }}
           >
-            <span className="text-[var(--yellow)]">NEURO</span>CRAFTS
+              NEUROCRAFTS
           </a>
 
-          <nav className="flex-1 flex flex-col gap-1.5 lg:gap-2 px-3 lg:px-4">
-            {menuItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`flex items-center gap-3 lg:gap-4 px-3 lg:px-4 py-3 lg:py-4 transition-all border-l-4 ${
-                  activeSection === item.id 
-                    ? 'bg-[var(--yellow)] text-black border-black font-black' 
-                    : 'border-transparent hover:border-[var(--yellow)] hover:bg-white/5 font-bold'
-                }`}
-              >
-                <div className={`icon-${item.icon} text-lg lg:text-xl flex-shrink-0`}></div>
-                <span 
-                  className="whitespace-nowrap overflow-hidden text-xs lg:text-sm uppercase tracking-wide"
-                  style={{ 
-                    opacity: isExpanded ? 1 : 0,
-                    width: isExpanded ? 'auto' : '0',
-                    transition: 'opacity 0.3s ease, width 0.3s ease'
-                  }}
+          <nav className="flex-1 flex flex-col gap-1 md:gap-1.5 lg:gap-2 px-3 md:px-3.5 lg:px-4">
+            {menuItems.map((item) => {
+              if (item.id === 'before-after') return null;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`flex items-center gap-2 md:gap-3 lg:gap-4 px-2.5 md:px-3 lg:px-4 py-2.5 md:py-3 lg:py-4 transition-all border-l-4 ${
+                    activeSection === item.id 
+                      ? 'bg-white text-black border-white font-black' 
+                      : 'border-transparent hover:border-white hover:bg-white/5 font-bold'
+                  }`}
                 >
-                  {item.label}
-                </span>
-              </button>
-            ))}
+                  <div className={`icon-${item.icon} text-base md:text-lg lg:text-xl flex-shrink-0`}></div>
+                  <span 
+                    className="whitespace-nowrap overflow-hidden text-xs md:text-sm uppercase tracking-wide"
+                    style={{ 
+                      opacity: isExpanded ? 1 : 0,
+                      width: isExpanded ? 'auto' : '0',
+                      transition: 'opacity 0.3s ease, width 0.3s ease'
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
           </nav>
 
           <div className="px-3 lg:px-4 pb-4">
             <a 
               href="before-after.html"
-              className="flex items-center gap-3 lg:gap-4 px-3 lg:px-4 py-3 lg:py-4 transition-all border-l-4 border-transparent hover:border-[var(--yellow)] hover:bg-white/5 font-bold"
+              className="flex items-center gap-3 lg:gap-4 px-3 lg:px-4 py-3 lg:py-4 transition-all border-l-4 border-transparent hover:border-white hover:bg-white/5 font-bold"
             >
               <div className="icon-repeat text-lg lg:text-xl flex-shrink-0"></div>
               <span 

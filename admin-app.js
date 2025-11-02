@@ -64,7 +64,7 @@ function AdminApp() {
       e.preventDefault();
       
       // Простая проверка пароля
-      const ADMIN_PASSWORD = 'RODINA192266';
+      const ADMIN_PASSWORD = 'anderson';
       
       try {
         if (password === ADMIN_PASSWORD) {

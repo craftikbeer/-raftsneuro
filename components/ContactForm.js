@@ -80,6 +80,11 @@ function ContactForm() {
       data.lastUpdated = new Date().toISOString();
       localStorage.setItem('neurocrafts_submissions', JSON.stringify(data));
       
+      // Track form submission in GA4
+      if (typeof window.trackEvent === 'function') {
+        window.trackEvent('Form', 'Submit', 'Contact Form Success');
+      }
+      
       setSubmitted(true);
       setErrors({});
       setTimeout(() => setSubmitted(false), 15000);
@@ -117,13 +122,15 @@ function ContactForm() {
   return (
     <section id="contact-form" className="min-h-screen py-20 md:py-32 px-4 md:px-8 lg:px-16 flex items-center" data-name="contact-form" data-file="components/ContactForm.js">
       <div className="max-w-4xl mx-auto w-full">
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 md:mb-8 text-center tracking-tight uppercase leading-tight px-4">
-          ГОТОВЫ <span className="text-[var(--yellow)]">НАЧАТЬ?</span>
+        <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 md:mb-10 text-center leading-none px-4">
+          ГОТОВЫ НАЧАТЬ?
         </h2>
-        <p className="text-lg md:text-xl lg:text-2xl text-center mb-10 md:mb-16 font-bold text-gray-300 max-w-3xl mx-auto px-4">
-          Заполните форму — отвечу в течение 24 часов
-        </p>
-        <form onSubmit={handleSubmit} className="glass-effect p-8 md:p-12 lg:p-16 rounded-3xl border-4 border-[var(--yellow)] shadow-[0_0_100px_rgba(255,214,0,0.1)]">
+        <div className="max-w-2xl mx-auto mb-10 md:mb-12 border-t-4 border-b-4 border-white py-4 md:py-5">
+          <p className="text-base md:text-lg lg:text-xl text-center font-black px-4">
+            ФОРМА • ОТВЕТ 24 ЧАСА
+          </p>
+        </div>
+        <form onSubmit={handleSubmit} className="brutal-box-inverse p-6 md:p-10 lg:p-12 xl:p-16">
           <div className="mb-6 relative">
             <input
               type="text"
@@ -134,8 +141,8 @@ function ContactForm() {
               onBlur={() => setFocusedField(null)}
               placeholder="ИМЯ"
               required
-              className={`w-full bg-transparent border-b-2 py-4 md:py-5 px-2 text-base md:text-lg font-bold focus:outline-none transition-all uppercase placeholder-gray-500 ${
-                errors.name ? 'border-[var(--red)]' : 'border-[var(--yellow)] focus:border-white'
+              className={`w-full bg-black border-2 py-4 md:py-5 lg:py-6 px-4 md:px-5 lg:px-6 text-base md:text-lg lg:text-xl font-bold focus:outline-none transition-all uppercase placeholder-gray-500 ${
+                errors.name ? 'border-red-500' : 'border-white focus:border-[var(--accent-color)]'
               }`}
               style={{
                 transform: focusedField === 'name' ? 'translateY(-2px)' : 'translateY(0)',
@@ -154,8 +161,8 @@ function ContactForm() {
               onBlur={() => setFocusedField(null)}
               placeholder="EMAIL"
               required
-              className={`w-full bg-transparent border-b-2 py-4 px-2 text-lg font-bold focus:outline-none transition-all uppercase placeholder-gray-500 ${
-                errors.email ? 'border-[var(--red)]' : 'border-[var(--yellow)] focus:border-white'
+              className={`w-full bg-black border-2 py-5 md:py-6 px-6 text-lg md:text-xl font-bold focus:outline-none transition-all uppercase placeholder-gray-500 ${
+                errors.email ? 'border-red-500' : 'border-white focus:border-[var(--accent-color)]'
               }`}
               style={{
                 transform: focusedField === 'email' ? 'translateY(-2px)' : 'translateY(0)',
@@ -173,9 +180,9 @@ function ContactForm() {
               onBlur={() => setFocusedField(null)}
               placeholder="ЧТО НУЖНО СДЕЛАТЬ?"
               required
-              rows="5"
-              className={`w-full bg-transparent border-b-2 py-4 px-2 text-lg font-bold focus:outline-none transition-all resize-none uppercase placeholder-gray-500 ${
-                errors.message ? 'border-[var(--red)]' : 'border-[var(--yellow)] focus:border-white'
+              rows="6"
+              className={`w-full bg-black border-2 py-5 md:py-6 px-6 text-lg md:text-xl font-bold focus:outline-none transition-all resize-none uppercase placeholder-gray-500 ${
+                errors.message ? 'border-red-500' : 'border-white focus:border-[var(--accent-color)]'
               }`}
               style={{
                 transform: focusedField === 'message' ? 'translateY(-2px)' : 'translateY(0)',
@@ -188,10 +195,10 @@ function ContactForm() {
           {errors.submit && <p className="text-[var(--red)] text-lg mb-4 font-bold">{errors.submit}</p>}
           <button
             type="submit"
-            className={`w-full py-5 md:py-6 font-black text-base md:text-xl uppercase tracking-wide transition-all transform hover:scale-105 border-4 border-black ${
+            className={`w-full py-6 md:py-7 font-black text-xl md:text-2xl uppercase tracking-wide transition-all transform hover:scale-105 border-2 border-white ${
               submitted 
                 ? 'bg-green-500 text-white' 
-                : 'bg-[var(--yellow)] text-black hover:bg-white'
+                : 'bg-white text-black hover:bg-[var(--accent-color)]'
             }`}
           >
             {submitted ? '✓ ОТПРАВЛЕНО! СКОРО ОТВЕТЮ' : 'ОТПРАВИТЬ ЗАЯВКУ'}
@@ -206,23 +213,23 @@ function ContactForm() {
             </div>
           )}
           
-          <div className="mt-10 pt-10 border-t-2 border-[var(--yellow)]">
-            <p className="text-center text-gray-400 mb-6 text-sm md:text-base font-bold uppercase">или свяжитесь другим способом:</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="mt-10 pt-10 border-t-4 border-white">
+            <p className="text-center mb-6 text-sm md:text-base font-black uppercase">ИЛИ ПО ДРУГОМУ:</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-0">
                 <a 
                   href="mailto:craftsneuro@gmail.com"
-                  className="flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-black border-2 border-[var(--yellow)] hover:bg-[var(--yellow)] hover:text-black transition-all font-bold uppercase text-sm md:text-base"
+                  className="flex items-center justify-center gap-4 px-8 md:px-10 py-5 md:py-6 bg-white text-black border-2 border-black hover:bg-[var(--accent-color)] transition-all font-black uppercase text-base md:text-lg border-b-0 sm:border-b-2 sm:border-r-0"
                 >
-                  <div className="icon-mail text-xl"></div>
+                  <div className="icon-mail text-xl md:text-2xl"></div>
                   <span>Email</span>
                 </a>
               <a 
                 href="https://t.me/neurocraftsru"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-black border-2 border-[var(--yellow)] hover:bg-[var(--yellow)] hover:text-black transition-all font-bold uppercase text-sm md:text-base"
+                className="flex items-center justify-center gap-4 px-8 md:px-10 py-5 md:py-6 bg-white text-black border-2 border-black hover:bg-[var(--accent-color)] transition-all font-black uppercase text-base md:text-lg"
               >
-                <div className="icon-message-circle text-xl"></div>
+                <div className="icon-message-circle text-xl md:text-2xl"></div>
                 <span>Telegram</span>
               </a>
             </div>
