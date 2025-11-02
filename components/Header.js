@@ -1,38 +1,20 @@
-function Header() {
-  const [isVisible, setIsVisible] = React.useState(false);
+const Header = React.memo(function Header() {
+  const isVisible = useScrollVisibility(300);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const lastScrollY = React.useRef(0);
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-      
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (id) => {
+  const scrollToSection = React.useCallback((id) => {
     if (id === 'hero') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const menuItems = [
+  const menuItems = React.useMemo(() => [
     { id: 'services', label: 'УСЛУГИ' },
     { id: 'contact-form', label: 'КОНТАКТЫ' }
-  ];
+  ], []);
 
   return (
     <>
@@ -105,4 +87,4 @@ function Header() {
       )}
     </>
   );
-}
+});

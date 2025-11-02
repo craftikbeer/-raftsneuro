@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NEUROCRAFTS — AI-дизайн и Нейроразработка</title>
     <meta name="description" content="Премиальные услуги AI-дизайна, creative tech и нейроразработки. Создаем будущее технологий.">
     <meta name="keywords" content="AI дизайн, нейроразработка, creative tech, NEUROCRAFTS, искусственный интеллект, машинное обучение, дизайн будущего">
@@ -126,6 +127,13 @@
         .noise-bg {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
         }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(40px);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     }
 
     @layer utilities {
@@ -218,6 +226,11 @@
       });
       */
     </script>
+    <script type="text/babel" src="config.js"></script>
+    <script type="text/babel" src="utils/hooks/useLocalStorage.js"></script>
+    <script type="text/babel" src="utils/hooks/useProjects.js"></script>
+    <script type="text/babel" src="utils/hooks/useScrollVisibility.js"></script>
+    <script type="text/babel" src="utils/hooks/useIntersectionObserver.js"></script>
     <script type="text/babel" src="utils/preloader.js"></script>
     <script>
       // Scroll to top button visibility

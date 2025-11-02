@@ -1,32 +1,7 @@
-function Services() {
-  const [isVisible, setIsVisible] = React.useState(false);
-  const sectionRef = React.useRef(null);
-  const [hoveredIndex, setHoveredIndex] = React.useState(null);
+const Services = React.memo(function Services() {
+  const [sectionRef, isVisible] = useIntersectionObserver();
 
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
-  const services = [
+  const services = React.useMemo(() => [
     {
       title: 'AI-ПОРТРЕТ',
       description: 'Уникальные портреты через AI',
@@ -63,7 +38,13 @@ function Services() {
         '5-7 ДНЕЙ'
       ]
     }
-  ];
+  ], []);
+
+  const handleServiceOrder = React.useCallback((title) => {
+    if (typeof window.trackEvent === 'function') {
+      window.trackEvent('Button', 'Click', `Service Order - ${title}`);
+    }
+  }, []);
 
   return (
     <section 
@@ -106,11 +87,7 @@ function Services() {
                 href="https://t.me/neurocraftsru"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => {
-                  if (typeof window.trackEvent === 'function') {
-                    window.trackEvent('Button', 'Click', `Service Order - ${service.title}`);
-                  }
-                }}
+                onClick={() => handleServiceOrder(service.title)}
                 className="brutal-box-inverse px-6 md:px-8 py-4 md:py-5 font-black text-sm md:text-base lg:text-lg text-center hover:bg-white hover:text-black transition-colors tracking-wide"
               >
                 ЗАКАЗАТЬ →
@@ -121,4 +98,4 @@ function Services() {
       </div>
     </section>
   );
-}
+});

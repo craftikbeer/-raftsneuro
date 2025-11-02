@@ -1,4 +1,4 @@
-function ContactForm() {
+const ContactForm = React.memo(function ContactForm() {
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
@@ -7,44 +7,45 @@ function ContactForm() {
   const [submitted, setSubmitted] = React.useState(false);
   const [errors, setErrors] = React.useState({});
   const [focusedField, setFocusedField] = React.useState(null);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const lastSubmitTime = React.useRef(0);
 
-
-  const validateForm = () => {
+  const validateForm = React.useCallback(() => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Введите имя';
     if (!formData.email.trim()) newErrors.email = 'Введите email';
     if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Некорректный email';
     if (!formData.message.trim()) newErrors.message = 'Введите сообщение';
     return newErrors;
-  };
+  }, [formData]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = React.useCallback(async (e) => {
     e.preventDefault();
-    const newErrors = validateForm();
     
+    // Rate limiting: max 1 submit per 10 seconds
+    const now = Date.now();
+    if (now - lastSubmitTime.current < 10000) {
+      setErrors({ submit: 'Подождите 10 секунд перед повторной отправкой' });
+      return;
+    }
+    
+    const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
     
+    setIsSubmitting(true);
+    lastSubmitTime.current = now;
+    
     try {
       // Проверка наличия EmailJS
       if (typeof emailjs === 'undefined') {
-        console.error('EmailJS library not loaded');
         throw new Error('Библиотека EmailJS не загружена');
       }
       
-      if (!window.EMAILJS_PUBLIC_KEY) {
-        console.error('EmailJS public key missing');
-        throw new Error('Отсутствует публичный ключ EmailJS');
-      }
-      
-      if (!window.EMAILJS_SERVICE_ID || !window.EMAILJS_TEMPLATE_ID) {
-        console.error('EmailJS credentials missing:', {
-          serviceId: window.EMAILJS_SERVICE_ID,
-          templateId: window.EMAILJS_TEMPLATE_ID
-        });
-        throw new Error('Отсутствуют данные для отправки. Проверьте настройки EmailJS.');
+      if (!CONFIG.EMAILJS.PUBLIC_KEY || !CONFIG.EMAILJS.SERVICE_ID || !CONFIG.EMAILJS.TEMPLATE_ID) {
+        throw new Error('Отсутствуют данные для отправки');
       }
       
       // Отправка через EmailJS на craftsneuro@gmail.com
@@ -58,8 +59,8 @@ function ContactForm() {
       console.log('Sending email with params:', emailParams);
       
       const response = await emailjs.send(
-        window.EMAILJS_SERVICE_ID,
-        window.EMAILJS_TEMPLATE_ID,
+        CONFIG.EMAILJS.SERVICE_ID,
+        CONFIG.EMAILJS.TEMPLATE_ID,
         emailParams
       );
       
@@ -87,6 +88,7 @@ function ContactForm() {
       
       setSubmitted(true);
       setErrors({});
+      setIsSubmitting(false);
       setTimeout(() => setSubmitted(false), 15000);
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
@@ -112,12 +114,13 @@ function ContactForm() {
       }
       
       setErrors({ submit: errorMessage });
+      setIsSubmitting(false);
     }
-  };
+  }, [formData, validateForm]);
 
-  const handleChange = (e) => {
+  const handleChange = React.useCallback((e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  }, [formData]);
 
   return (
     <section id="contact-form" className="min-h-screen py-20 md:py-32 px-4 md:px-8 lg:px-16 flex items-center" data-name="contact-form" data-file="components/ContactForm.js">
@@ -195,13 +198,14 @@ function ContactForm() {
           {errors.submit && <p className="text-[var(--red)] text-lg mb-4 font-bold">{errors.submit}</p>}
           <button
             type="submit"
-            className={`w-full py-6 md:py-7 font-black text-xl md:text-2xl uppercase tracking-wide transition-all transform hover:scale-105 border-2 border-white ${
+            disabled={isSubmitting}
+            className={`w-full py-6 md:py-7 font-black text-xl md:text-2xl uppercase tracking-wide transition-all transform hover:scale-105 border-2 border-white disabled:opacity-50 disabled:cursor-not-allowed ${
               submitted 
                 ? 'bg-green-500 text-white' 
                 : 'bg-white text-black hover:bg-[var(--accent-color)]'
             }`}
           >
-            {submitted ? '✓ ОТПРАВЛЕНО! СКОРО ОТВЕТЮ' : 'ОТПРАВИТЬ ЗАЯВКУ'}
+            {isSubmitting ? 'ОТПРАВКА...' : submitted ? '✓ ОТПРАВЛЕНО! СКОРО ОТВЕТЮ' : 'ОТПРАВИТЬ ЗАЯВКУ'}
           </button>
           
           {submitted && (
@@ -238,4 +242,4 @@ function ContactForm() {
       </div>
     </section>
   );
-}
+});

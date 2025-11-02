@@ -1,47 +1,23 @@
-function Benefits() {
-  const [isVisible, setIsVisible] = React.useState(false);
-  const sectionRef = React.useRef(null);
+const Benefits = React.memo(function Benefits() {
+  const [sectionRef, isVisible] = useIntersectionObserver();
 
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
-  const benefits = [
+  const benefits = React.useMemo(() => [
     {
       icon: 'shield-check',
       title: 'ГАРАНТИЯ',
-      description: '1 ПРАВКА БЕСПЛАТНО<br/>ВОЗВРАТ 50% ЕСЛИ НЕ ТО'
+      lines: ['1 ПРАВКА БЕСПЛАТНО', 'ВОЗВРАТ 50% ЕСЛИ НЕ ТО']
     },
     {
       icon: 'zap',
       title: 'СКОРОСТЬ',
-      description: 'ПОРТРЕТ 1-2 ДНЯ<br/>ЛОГОТИП 2-3 ДНЯ<br/>УПАКОВКА НЕДЕЛЯ'
+      lines: ['ПОРТРЕТ 1-2 ДНЯ', 'ЛОГОТИП 2-3 ДНЯ', 'УПАКОВКА НЕДЕЛЯ']
     },
     {
       icon: 'target',
       title: 'ПРЯМАЯ СВЯЗЬ',
-      description: 'БЕЗ ПОСРЕДНИКОВ<br/>ПИШИТЕ В TELEGRAM'
+      lines: ['БЕЗ ПОСРЕДНИКОВ', 'ПИШИТЕ В TELEGRAM']
     }
-  ];
+  ], []);
 
   return (
     <section 
@@ -69,11 +45,15 @@ function Benefits() {
             >
               <div className="text-7xl md:text-8xl lg:text-9xl mb-6 md:mb-8 opacity-20">{String(index + 1).padStart(2, '0')}</div>
               <h3 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 md:mb-6 leading-none">{benefit.title}</h3>
-              <p className="text-sm md:text-base lg:text-lg font-black leading-relaxed" dangerouslySetInnerHTML={{ __html: benefit.description }}></p>
+              <div className="text-sm md:text-base lg:text-lg font-black leading-relaxed">
+                {benefit.lines.map((line, idx) => (
+                  <div key={idx}>{line}</div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+});

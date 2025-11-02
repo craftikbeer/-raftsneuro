@@ -44,14 +44,12 @@ function AdminApp() {
     const [showForm, setShowForm] = React.useState(false);
     const [editingProject, setEditingProject] = React.useState(null);
 
-    React.useEffect(() => {
-      const savedAuth = sessionStorage.getItem('admin_auth');
-      // SHA-256 хеш пароля "RODINA192266"
-      const ADMIN_PASSWORD_HASH = 'e5b5a7e7c0c3f5e8e5f7a7f7c0c3f5e8e5f7a7f7c0c3f5e8e5f7a7f7c0c3f5e8';
-      if (savedAuth === ADMIN_PASSWORD_HASH) {
-        setIsAuthenticated(true);
-      }
-    }, []);
+  React.useEffect(() => {
+    const savedAuth = sessionStorage.getItem('admin_auth');
+    if (savedAuth === CONFIG.ADMIN_PASSWORD_HASH) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -63,18 +61,38 @@ function AdminApp() {
     const handleLogin = async (e) => {
       e.preventDefault();
       
-      // Простая проверка пароля
-      const ADMIN_PASSWORD = 'anderson';
+      const ADMIN_PASSWORD = 'RODINA192266';
       
       try {
         if (password === ADMIN_PASSWORD) {
-          // Хешируем для сохранения в сессии
-          const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password));
-          const hashArray = Array.from(new Uint8Array(hashBuffer));
-          const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+          let hashHex;
+          if (window.crypto && window.crypto.subtle) {
+            try {
+              const encoder = new TextEncoder();
+              const data = encoder.encode(password);
+              const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+              const hashArray = [];
+              const view = new Uint8Array(hashBuffer);
+              for (let i = 0; i < view.length; i++) {
+                hashArray.push(view[i]);
+              }
+              hashHex = hashArray.map(function(b) {
+                return ('00' + b.toString(16)).slice(-2);
+              }).join('');
+            } catch (cryptoError) {
+              console.warn('Crypto API failed, using simple hash');
+              hashHex = 'e5b5a7e7c0c3f5e8e5f7a7f7c0c3f5e8e5f7a7f7c0c3f5e8e5f7a7f7c0c3f5e8';
+            }
+          } else {
+            hashHex = 'e5b5a7e7c0c3f5e8e5f7a7f7c0c3f5e8e5f7a7f7c0c3f5e8e5f7a7f7c0c3f5e8';
+          }
           
           setIsAuthenticated(true);
-          sessionStorage.setItem('admin_auth', hashHex);
+          try {
+            sessionStorage.setItem('admin_auth', hashHex);
+          } catch (storageError) {
+            console.warn('SessionStorage not available');
+          }
           setError('');
         } else {
           setError('Неверный пароль');

@@ -1,17 +1,17 @@
-function HeroBrutal() {
-  const scrollToForm = () => {
+const HeroBrutal = React.memo(function HeroBrutal() {
+  const scrollToForm = React.useCallback(() => {
     if (typeof window.trackEvent === 'function') {
       window.trackEvent('Button', 'Click', 'Hero CTA - Order');
     }
     document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
-  const scrollToGallery = () => {
+  const scrollToGallery = React.useCallback(() => {
     if (typeof window.trackEvent === 'function') {
       window.trackEvent('Button', 'Click', 'Hero CTA - Portfolio');
     }
     document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   return (
     <section 
@@ -61,4 +61,4 @@ function HeroBrutal() {
       </div>
     </section>
   );
-}
+});

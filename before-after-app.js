@@ -49,52 +49,61 @@ function BeforeAfterApp() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const loadProjects = async () => {
-    try {
-      const stored = localStorage.getItem('neurocrafts_beforeafter');
-      if (stored) {
-        const data = JSON.parse(stored);
-        setProjects(data.projects || []);
-        setLoading(false);
-        return;
-      }
-      
-      // Fallback проекты
-      const fallbackProjects = [
-        {
-          id: "1",
-          title: "Редизайн сайта для стартапа",
-          category: "Web Design",
-          before: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&q=75&fm=webp",
-          after: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=75&fm=webp",
-          description: "Превратили устаревший сайт в современную платформу. Конверсия выросла на 220%, bounce rate упал на 65%."
-        }
-      ];
-      
-      setProjects(fallbackProjects);
-      setLoading(false);
-      
+    const loadProjects = async () => {
       try {
-        const response = await fetch('data/before-after.json');
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data.projects || fallbackProjects);
-          localStorage.setItem('neurocrafts_beforeafter', JSON.stringify(data));
-        } else {
-          const fallbackData = { lastUpdated: new Date().toISOString(), projects: fallbackProjects };
-          localStorage.setItem('neurocrafts_beforeafter', JSON.stringify(fallbackData));
+        let stored;
+        try {
+          stored = localStorage.getItem('neurocrafts_beforeafter');
+        } catch (storageError) {
+          console.warn('LocalStorage not available');
+          stored = null;
         }
-      } catch (fetchError) {
-        console.log('Не удалось загрузить из файла, используем fallback данные');
-        const fallbackData = { lastUpdated: new Date().toISOString(), projects: fallbackProjects };
-        localStorage.setItem('neurocrafts_beforeafter', JSON.stringify(fallbackData));
+        
+        if (stored) {
+          try {
+            const data = JSON.parse(stored);
+            setProjects(data.projects || []);
+            setLoading(false);
+            return;
+          } catch (parseError) {
+            console.warn('Failed to parse stored data');
+          }
+        }
+        
+        const fallbackProjects = [
+          {
+            id: "1",
+            title: "Редизайн сайта для стартапа",
+            category: "Web Design",
+            before: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&q=75&fm=webp",
+            after: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=75&fm=webp",
+            description: "Превратили устаревший сайт в современную платформу. Конверсия выросла на 220%, bounce rate упал на 65%."
+          }
+        ];
+        
+        setProjects(fallbackProjects);
+        setLoading(false);
+        
+        try {
+          const response = await fetch('data/before-after.json');
+          if (response.ok) {
+            const data = await response.json();
+            setProjects(data.projects || fallbackProjects);
+            try {
+              localStorage.setItem('neurocrafts_beforeafter', JSON.stringify(data));
+            } catch (storageError) {
+              console.warn('Cannot save to localStorage');
+            }
+          }
+        } catch (fetchError) {
+          console.log('Using fallback projects');
+        }
+      } catch (error) {
+        console.error('Error loading projects:', error);
+        setProjects([]);
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Ошибка загрузки проектов:', error);
-      setProjects([]);
-      setLoading(false);
-    }
-  };
+    };
 
   return (
     <div className="min-h-screen" data-name="before-after-app" data-file="before-after-app.js">

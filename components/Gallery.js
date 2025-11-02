@@ -29,69 +29,78 @@ function Gallery() {
 
   const loadProjectsFromFile = async () => {
     try {
-      // Сначала проверяем LocalStorage
-      const stored = localStorage.getItem('neurocrafts_projects');
-      if (stored) {
-        const data = JSON.parse(stored);
-        setProjects(data.projects || []);
-        setFilteredProjects(data.projects || []);
-        return;
+      let stored;
+      try {
+        stored = localStorage.getItem('neurocrafts_projects');
+      } catch (storageError) {
+        console.warn('LocalStorage not available');
+        stored = null;
       }
       
-      // Fallback проекты если нет в localStorage или файле
-      const fallbackProjects = [
-          {
-            id: "1",
-            title: "AI Портрет",
-            category: "AI-Дизайн",
-            image: "https://i.imgur.com/E040DG1.jpeg",
-            description: "Создание реалистичного AI портрета с использованием нейросетей",
-            comment: "Клиент хотел \"как у всех\". Мы сделали наоборот — и конверсия выросла на 180%.",
-            tags: ["AI", "Портрет", "Нейросеть"]
-          },
-          {
-            id: "2",
-            title: "Редизайн Логотипа",
-            category: "Нейроразработка",
-            image: "https://i.imgur.com/UHhDTAb.jpeg",
-            description: "Модернизация корпоративного логотипа с сохранением узнаваемости",
-            comment: "Редизайн, который изменил восприятие бренда за 2 недели.",
-            tags: ["Логотип", "Редизайн", "Брендинг"]
-          },
-          {
-            id: "3",
-            title: "Фирменный стиль",
-            category: "Creative Tech",
-            image: "https://i.imgur.com/Ia2nNxO.jpeg",
-            description: "Разработка визуальной системы, которая говорит без слов.",
-            comment: "Клиент инвестировал втрое больше изначального бюджета. Результат того стоил.",
-            tags: ["Логотип", "Концепт", "Редизайн", "Брендинг", "Премиум", "Фирменный стиль"]
-          }
-        ];
-      const fallbackData = { lastUpdated: new Date().toISOString(), projects: fallbackProjects };
+      if (stored) {
+        try {
+          const data = JSON.parse(stored);
+          setProjects(data.projects || []);
+          setFilteredProjects(data.projects || []);
+          return;
+        } catch (parseError) {
+          console.warn('Failed to parse stored data');
+        }
+      }
       
-      // Устанавливаем fallback сразу
+      const fallbackProjects = [
+        {
+          id: "1",
+          title: "AI Портрет",
+          category: "AI-Дизайн",
+          image: "https://i.imgur.com/E040DG1.jpeg",
+          description: "Создание реалистичного AI портрета с использованием нейросетей",
+          comment: "Клиент хотел \"как у всех\". Мы сделали наоборот — и конверсия выросла на 180%.",
+          tags: ["AI", "Портрет", "Нейросеть"]
+        },
+        {
+          id: "2",
+          title: "Редизайн Логотипа",
+          category: "Нейроразработка",
+          image: "https://i.imgur.com/UHhDTAb.jpeg",
+          description: "Модернизация корпоративного логотипа с сохранением узнаваемости",
+          comment: "Редизайн, который изменил восприятие бренда за 2 недели.",
+          tags: ["Логотип", "Редизайн", "Брендинг"]
+        },
+        {
+          id: "3",
+          title: "Фирменный стиль",
+          category: "Creative Tech",
+          image: "https://i.imgur.com/Ia2nNxO.jpeg",
+          description: "Разработка визуальной системы, которая говорит без слов.",
+          comment: "Клиент инвестировал втрое больше изначального бюджета. Результат того стоил.",
+          tags: ["Логотип", "Концепт", "Редизайн", "Брендинг", "Премиум", "Фирменный стиль"]
+        }
+      ];
+      
       setProjects(fallbackProjects);
       setFilteredProjects(fallbackProjects);
       
-      // Пробуем загрузить из файла
       try {
         const response = await fetch('data/projects.json');
         if (response.ok) {
           const data = await response.json();
-          setProjects(data.projects || fallbackProjects);
-          setFilteredProjects(data.projects || fallbackProjects);
-          localStorage.setItem('neurocrafts_projects', JSON.stringify(data));
-        } else {
-          // Если fetch не удался, сохраняем fallback в localStorage
-          localStorage.setItem('neurocrafts_projects', JSON.stringify(fallbackData));
+          const projectsData = data.projects || fallbackProjects;
+          setProjects(projectsData);
+          setFilteredProjects(projectsData);
+          try {
+            localStorage.setItem('neurocrafts_projects', JSON.stringify(data));
+          } catch (storageError) {
+            console.warn('Cannot save to localStorage');
+          }
         }
       } catch (fetchError) {
-        console.log('Не удалось загрузить из файла, используем fallback данные');
-        localStorage.setItem('neurocrafts_projects', JSON.stringify(fallbackData));
+        console.log('Using fallback projects');
       }
     } catch (error) {
-      console.error('Ошибка загрузки проектов:', error);
+      console.error('Error loading projects:', error);
+      setProjects([]);
+      setFilteredProjects([]);
     }
   };
 
