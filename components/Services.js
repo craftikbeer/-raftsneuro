@@ -3,20 +3,22 @@ const Services = React.memo(function Services() {
 
   const services = React.useMemo(() => [
     {
-      title: 'AI-ПОРТРЕТ',
-      description: 'Уникальные портреты через AI',
-      icon: 'user',
-      price: 'ОТ 2,000₽',
+      title: 'AI КРЕАТИВ ДЛЯ БРЕНДА',
+      description: 'AI контент для соцсетей',
+      details: 'Быстрые AI-визуалы для ваших соцсетей: фото и видео для постов, сторис и рекламы.',
+      icon: 'sparkles',
+      price: 'ОТ 2,500₽',
       features: [
-        '6 ПОРТРЕТОВ',
-        'КАЧЕСТВО 2К',
+        '3 ФОТО AI + ВИДЕО 10 СЕК',
+        '2К ФОРМАТ',
         '1 ПРАВКА',
         '1-2 ДНЯ'
       ]
     },
     {
       title: 'ПЕРЕНОС ЛОГОТИПА',
-      description: 'Перенос на носители',
+      description: 'Адаптация на любые носители',
+      details: 'Ваш логотип на футболках, кружках, визитках, баннерах, упаковке, сайте и соцсетях. 7 вариантов размещения с учётом материалов и форм.',
       icon: 'copy',
       price: 'ОТ 7,000₽',
       features: [
@@ -27,14 +29,15 @@ const Services = React.memo(function Services() {
       ]
     },
     {
-      title: 'УПАКОВКА',
-      description: 'Дизайн упаковки',
-      icon: 'box',
+      title: 'ПАКЕТ КОНТЕНТА (МЕСЯЦ)',
+      description: 'Посты + сторис + визуалы',
+      details: 'Полный контент-план на месяц: посты для ленты, сторис, обложки, баннеры. Все форматы готовы к публикации.',
+      icon: 'package',
       price: 'ОТ 25,000₽',
       features: [
-        '2-3 КОНЦЕПТА',
-        'AI ВИДЕО',
-        '1 ПРАВКА',
+        '20 ПОСТОВ',
+        '15 СТОРИС',
+        'ВСЕ ФОРМАТЫ',
         '5-7 ДНЕЙ'
       ]
     }
@@ -60,7 +63,7 @@ const Services = React.memo(function Services() {
         </h2>
         <div className="max-w-2xl mx-auto mb-16 md:mb-20 border-t-4 border-b-4 border-white py-4 md:py-5">
           <p className="text-base md:text-lg lg:text-xl text-center font-black px-4">
-            3 УСЛУГИ • ФИКС ЦЕНЫ • ЧЁТКИЕ СРОКИ
+            3 УСЛУГИ • ДОП УСЛУГИ • ЧЁТКИЕ СРОКИ
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 max-w-6xl mx-auto border-4 border-white">
@@ -72,7 +75,12 @@ const Services = React.memo(function Services() {
               <div className="mb-6 md:mb-8 text-6xl md:text-7xl lg:text-8xl font-black opacity-20">{String(index + 1).padStart(2, '0')}</div>
               
               <h3 className="text-2xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4 leading-none">{service.title}</h3>
-              <p className="text-sm md:text-base lg:text-lg mb-6 md:mb-8 font-bold leading-relaxed">{service.description}</p>
+              <p className="text-sm md:text-base lg:text-lg mb-4 md:mb-6 font-bold leading-relaxed">{service.description}</p>
+              {service.details && (
+                <p className="text-xs md:text-sm mb-6 md:mb-8 leading-relaxed opacity-80">
+                  {service.details}
+                </p>
+              )}
               
               <div className="space-y-1.5 md:space-y-2 mb-4 md:mb-6 flex-1">
                 {service.features.map((feature, idx) => (

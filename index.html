@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NEUROCRAFTS — AI-дизайн и Нейроразработка</title>
-    <meta name="description" content="Премиальные услуги AI-дизайна, creative tech и нейроразработки. Создаем будущее технологий.">
-    <meta name="keywords" content="AI дизайн, нейроразработка, creative tech, NEUROCRAFTS, искусственный интеллект, машинное обучение, дизайн будущего">
+    <meta name="description" content="AI креатив для бренда, перенос логотипа, дизайн упаковки. Цены от 2,500₽. Сроки 1-7 дней.">
+    <meta name="keywords" content="AI креатив, перенос логотипа, дизайн упаковки, NEUROCRAFTS, AI контент, брендинг, соцсети">
     <meta name="robots" content="index, follow">
     <meta name="author" content="NEUROCRAFTS">
     <meta property="og:title" content="NEUROCRAFTS — AI-дизайн и Нейроразработка">
@@ -47,24 +47,6 @@
     
     <style>
         body { margin: 0; background: #000; color: #fff; }
-        #preloader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-        #preloader.hidden { display: none; }
-        .loader {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #fff;
-            border-top-color: transparent;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 
     <script src="https://resource.trickle.so/vendor_lib/unpkg/react@18/umd/react.production.min.js"></script>
@@ -148,10 +130,6 @@
     </style>
 </head>
 <body>
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-
     <button 
       id="scroll-to-top" 
       onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
@@ -231,7 +209,6 @@
     <script type="text/babel" src="utils/hooks/useProjects.js"></script>
     <script type="text/babel" src="utils/hooks/useScrollVisibility.js"></script>
     <script type="text/babel" src="utils/hooks/useIntersectionObserver.js"></script>
-    <script type="text/babel" src="utils/preloader.js"></script>
     <script>
       // Scroll to top button visibility
       window.addEventListener('scroll', function() {

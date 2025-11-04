@@ -368,11 +368,7 @@ function AdminApp() {
             </div>
           </div>
 
-          {activeTab === 'portfolio' && (loading ? (
-            <div className="text-center py-20">
-              <p className="text-gray-400">Загрузка...</p>
-            </div>
-          ) : projects.length === 0 ? (
+          {activeTab === 'portfolio' && (projects.length === 0 ? (
             <div className="glass-effect rounded-2xl p-12 text-center">
               <p className="text-gray-400 mb-4">Нет проектов</p>
               <button
@@ -422,11 +418,7 @@ function AdminApp() {
             </div>
           ))}
 
-          {activeTab === 'beforeafter' && (loading ? (
-            <div className="text-center py-20">
-              <p className="text-gray-400">Загрузка...</p>
-            </div>
-          ) : beforeAfterProjects.length === 0 ? (
+          {activeTab === 'beforeafter' && (beforeAfterProjects.length === 0 ? (
             <div className="glass-effect rounded-2xl p-12 text-center">
               <p className="text-gray-400">Нет проектов</p>
             </div>

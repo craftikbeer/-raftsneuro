@@ -13,33 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://resource.trickle.so/vendor_lib/unpkg/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
 
-    <style>
-        #preloader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-        }
-        #preloader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
+
 
     <style type="text/tailwindcss">
     @layer theme {
@@ -79,12 +53,7 @@
     </style>
 </head>
 <body>
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-
     <div id="root"></div>
-    <script type="text/babel" src="utils/preloader.js"></script>
     <script type="text/babel" src="components/Sidebar.js"></script>
     <script type="text/babel" src="components/BeforeAfterSlider.js"></script>
     <script type="text/babel" src="before-after-app.js"></script>

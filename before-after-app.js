@@ -36,10 +36,9 @@ function BeforeAfterApp() {
   const [loaded, setLoaded] = React.useState(false);
   const [scrollY, setScrollY] = React.useState(0);
   const [projects, setProjects] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    setTimeout(() => setLoaded(true), 300);
+    setLoaded(true);
     loadProjects();
     
     const handleScroll = () => {
@@ -63,7 +62,6 @@ function BeforeAfterApp() {
           try {
             const data = JSON.parse(stored);
             setProjects(data.projects || []);
-            setLoading(false);
             return;
           } catch (parseError) {
             console.warn('Failed to parse stored data');
@@ -82,10 +80,14 @@ function BeforeAfterApp() {
         ];
         
         setProjects(fallbackProjects);
-        setLoading(false);
         
         try {
-          const response = await fetch('data/before-after.json');
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          
+          const response = await fetch('data/before-after.json', { signal: controller.signal });
+          clearTimeout(timeoutId);
+          
           if (response.ok) {
             const data = await response.json();
             setProjects(data.projects || fallbackProjects);
@@ -96,12 +98,11 @@ function BeforeAfterApp() {
             }
           }
         } catch (fetchError) {
-          console.log('Using fallback projects');
+          console.log('Using fallback projects, fetch error:', fetchError.message);
         }
       } catch (error) {
         console.error('Error loading projects:', error);
         setProjects([]);
-        setLoading(false);
       }
     };
 
@@ -150,11 +151,7 @@ function BeforeAfterApp() {
         {/* Projects Section */}
         <section className="py-20 md:py-32 px-4 md:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto space-y-32">
-            {loading ? (
-              <div className="text-center py-20">
-                <p className="text-gray-400">Загрузка проектов...</p>
-              </div>
-            ) : projects.length === 0 ? (
+            {projects.length === 0 ? (
               <div className="glass-effect rounded-2xl p-12 text-center">
                 <p className="text-gray-400">Пока нет проектов</p>
               </div>

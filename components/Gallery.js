@@ -82,7 +82,12 @@ function Gallery() {
       setFilteredProjects(fallbackProjects);
       
       try {
-        const response = await fetch('data/projects.json');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        
+        const response = await fetch('data/projects.json', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
         if (response.ok) {
           const data = await response.json();
           const projectsData = data.projects || fallbackProjects;
@@ -174,8 +179,13 @@ function Gallery() {
             </button>
           ))}
         </div>
-        <div className="space-y-0">
-          {filteredProjects.map((project, index) => (
+        {filteredProjects.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-gray-400 text-xl font-bold">ПРОЕКТОВ НЕ НАЙДЕНО</p>
+          </div>
+        ) : (
+          <div className="space-y-0">
+            {filteredProjects.map((project, index) => (
             <div 
               key={index}
               onClick={() => handleProjectClick(project, index)}
@@ -217,8 +227,9 @@ function Gallery() {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
     {selectedProject && (
